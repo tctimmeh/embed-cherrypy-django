@@ -52,6 +52,8 @@ ROOT_URLCONF = 'webapp.testproj.urls'
 
 WSGI_APPLICATION = 'testproj.wsgi.application'
 
+STATIC_URL = '/static/'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

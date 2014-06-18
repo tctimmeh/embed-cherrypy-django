@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 
 import time
 
@@ -6,6 +7,10 @@ import cherrypy
 from webapp.testproj.wsgi import application
 
 def startWebServer():
+  staticFilesPath = os.path.join(os.path.abspath(os.getcwd()), 'webapp', 'testapp', 'static')
+  staticHandler = cherrypy.tools.staticdir.handler(section = '/', dir = '', root = staticFilesPath)
+
+  cherrypy.tree.mount(staticHandler, '/static')
   cherrypy.tree.graft(application, '/')
   cherrypy.engine.start()
 
