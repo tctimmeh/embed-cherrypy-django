@@ -1,29 +1,27 @@
 #!/usr/bin/env python
 
 import time
+
 import cherrypy
-from cherrypy._cpserver import Server
+from webapp.testproj.wsgi import application
 
-class Root(object):
-  @cherrypy.expose
-  def index(self):
-    return "Hello World!"
-
-if __name__ == '__main__':
-  cherrypy.tree.mount(Root(), '/')
+def startWebServer():
+  cherrypy.tree.graft(application, '/')
   cherrypy.engine.start()
 
-  server = Server()
-  server.socket_port = 8090
-  server.subscribe()
+def stopWebServer():
+  cherrypy.engine.exit()
 
+def mainLoop():
   try:
     while True:
-      print('Running')
+      print('Doing important things...')
       time.sleep(1)
   except KeyboardInterrupt as e:
     pass
 
-  print('Shutting Down...')
-  cherrypy.engine.exit()
-  print('Bye!!')
+if __name__ == '__main__':
+  startWebServer()
+  mainLoop()
+  stopWebServer()
+
